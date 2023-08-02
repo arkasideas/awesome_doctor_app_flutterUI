@@ -1,8 +1,11 @@
+import 'package:awesome_doctor_app_ui/Data/data.dart';
 import 'package:awesome_doctor_app_ui/constants.dart';
 import 'package:awesome_doctor_app_ui/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
+
+import '../widgets/doctors_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -267,21 +270,140 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: getRelativeHeight(0.01),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color(0xFFFBA473),
-                                Color(0xFFFA7A30),
-                              ]
-                            ),
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color(0xFFFBA473),
+                                  Color(0xFFFA7A30),
+                                ]),
                             borderRadius: BorderRadius.circular(25),
                           ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getRelativeWidth(0.025),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Filter",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: getRelativeWidth(0.04),
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.filter_list,
+                                  color: Colors.white,
+                                  size: getRelativeWidth(0.055),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                   ),
                 ),
               ),
+              SizedBox(height: getRelativeHeight(0.025)),
+              Container(
+                height: getRelativeHeight(0.085),
+                child: ListView.builder(
+                  itemCount: Data.categoriesList.length,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getRelativeWidth(0.034),
+                  ),
+                  itemBuilder: (context, index) {
+                    final category = Data.categoriesList[index];
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: getRelativeHeight(0.1),
+                          constraints: BoxConstraints(
+                            minWidth: getRelativeWidth(0.41),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getRelativeWidth(0.03),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(
+                                    getRelativeWidth(0.025),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        kCategoriesPrimaryColor[index],
+                                        kCategoriesSecondaryColor[index],
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(
+                                    category.icon,
+                                    color: Colors.white,
+                                    size: getRelativeWidth(0.075),
+                                  ),
+                                ),
+                                SizedBox(width: getRelativeWidth(0.02)),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      category.title,
+                                      style: TextStyle(
+                                        fontSize: getRelativeWidth(0.038),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(width: getRelativeHeight(0.005)),
+                                    Text(
+                                      category.doctorsNumber.toString() +
+                                          " doctors",
+                                      style: TextStyle(
+                                        color: Colors.black.withOpacity(0.48),
+                                        fontSize: getRelativeWidth(0.03),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: getRelativeWidth(0.04),),
+                      ],
+                    );
+                  },
+                ),
+              ),
+              SizedBox(width: getRelativeHeight(0.01),),
+              DoctorsList(),
             ],
           ),
         ),

@@ -27,7 +27,7 @@ class Data {
     ),
   ];
 
-  static final doctorList = [
+  static final doctorsList = [
     Doctor(
       name: "Dr. Hegazy Ali",
       speciality: "Cardiology",
