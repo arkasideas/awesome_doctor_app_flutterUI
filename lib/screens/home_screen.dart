@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../widgets/bottom_navigation.dart';
 import '../widgets/doctors_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -396,17 +397,36 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(width: getRelativeWidth(0.04),),
+                        SizedBox(
+                          width: getRelativeWidth(0.04),
+                        ),
                       ],
                     );
                   },
                 ),
               ),
-              SizedBox(width: getRelativeHeight(0.01),),
+              SizedBox(
+                width: getRelativeHeight(0.01),
+              ),
               DoctorsList(),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigation(
+        selectedIndex: _selectedIndex,
+        onItemPressed: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        centerIcon: Icons.place,
+        itemIcons: [
+          Icons.home,
+          Icons.notifications,
+          Icons.message,
+          Icons.account_box,
+        ],
       ),
     );
   }
